@@ -57,7 +57,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("invalid_method.html");
 
-		printf("Invalid method!\n");
+		//printf("Invalid method!\n");
 		return;
 	}
 
@@ -69,7 +69,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_version.html");
 		
-		printf("Unsupported http version!\n");
+		//printf("Unsupported http version!\n");
 		return;
 	}
 	
@@ -93,7 +93,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("not_found.html");
 
-		printf("Resource not found!\n");
+		//printf("Resource not found!\n");
 		return;
 	}
 	fclose(file);
@@ -109,7 +109,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_media_type.html");
 
-		printf("Unsupported media type!\n");
+		//printf("Unsupported media type!\n");
 		return;
 	}
 
@@ -149,10 +149,10 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_media_type.html");
 		
-		printf("Unsupported media type!\n");
+		//printf("Unsupported media type!\n");
 	}
 	free(extension);
-	printf("Successfully processed request!\n");
+	//printf("Successfully processed request!\n");
 }
 
 void sendResponse(int clientSocket, const char * request) {	
@@ -187,7 +187,7 @@ void sendResponse(int clientSocket, const char * request) {
 int main(int argc, char ** argv) {
 	int serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (serverSocket < 1) {
-		printf("Failed to create socket!\n");
+		//printf("Failed to create socket!\n");
 		return -1;
 	}
 
@@ -201,12 +201,12 @@ int main(int argc, char ** argv) {
 	setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, (const void *) &optval, sizeof(int));
 
 	if (bind(serverSocket, (const struct sockaddr *) &serverAddress, sizeof(struct sockaddr_in)) < 0) {
-		printf("Failed to bind socket!\n");
+		//printf("Failed to bind socket!\n");
 		return -1;
 	}
 
 	if (listen(serverSocket, 5) < 0) {
-		printf("Failed to start listening!");
+		//printf("Failed to start listening!");
 		return -1;
 	}
 
@@ -219,13 +219,13 @@ int main(int argc, char ** argv) {
 		char buffer[1024];
 		int bytesRead = recv(clientSocket, buffer, 1023, 0);
 		buffer[bytesRead] = '\0';
-		printf("%s", buffer);
+		//printf("%s", buffer);
 
-		printf("--------------------------------------\n");
+		//printf("--------------------------------------\n");
 
 		sendResponse(clientSocket, buffer);	
 
-		printf("--------------------------------------\n\n");
+		//printf("--------------------------------------\n\n");
 		
 		shutdown(clientSocket, SHUT_RDWR);
 		close(clientSocket);
