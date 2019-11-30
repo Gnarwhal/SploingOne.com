@@ -6,6 +6,8 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
+FILE * logFile;
+
 const char * RESPONSE_TEMPLATE =
 "HTTP/1.1 %s\n"
 "Content-Type: %s\n"
@@ -57,7 +59,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("invalid_method.html");
 
-		//printf("Invalid method!\n");
+		fprintf(logFile, "Invalid method!\n");
 		return;
 	}
 
@@ -69,7 +71,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_version.html");
 		
-		//printf("Unsupported http version!\n");
+		fprintf(logFile, "Unsupported http version!\n");
 		return;
 	}
 	
@@ -93,7 +95,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("not_found.html");
 
-		//printf("Resource not found!\n");
+		fprintf(logFile, "Resource not found!\n");
 		return;
 	}
 	fclose(file);
@@ -109,7 +111,7 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_media_type.html");
 
-		//printf("Unsupported media type!\n");
+		fprintf(logFile, "Unsupported media type!\n");
 		return;
 	}
 
@@ -149,10 +151,10 @@ void processRequest(const char * request, char ** responseCode, char ** type, ch
 		*type         = copy("text/html; charset=utf-8");
 		*filePath     = copy("unsupported_media_type.html");
 		
-		//printf("Unsupported media type!\n");
+		fprintf(logFile, "Unsupported media type!\n");
 	}
 	free(extension);
-	//printf("Successfully processed request!\n");
+	fprintf(logFile, "Successfully processed request!\n");
 }
 
 void sendResponse(int clientSocket, const char * request) {	
@@ -185,9 +187,19 @@ void sendResponse(int clientSocket, const char * request) {
 }
 
 int main(int argc, char ** argv) {
+	if (argc < 2) {
+		logFile = stdout;
+	} else {
+		logFile = fopen(argv[1], "w");
+		if (logFile == NULL) {
+			printf("Could not open log file!");
+			return -1;
+		}
+	}
+
 	int serverSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 	if (serverSocket < 1) {
-		//printf("Failed to create socket!\n");
+		fprintf(logFile, "Failed to create socket!\n");
 		return -1;
 	}
 
@@ -201,12 +213,12 @@ int main(int argc, char ** argv) {
 	setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, (const void *) &optval, sizeof(int));
 
 	if (bind(serverSocket, (const struct sockaddr *) &serverAddress, sizeof(struct sockaddr_in)) < 0) {
-		//printf("Failed to bind socket!\n");
+		fprintf(logFile, "Failed to bind socket!\n");
 		return -1;
 	}
 
 	if (listen(serverSocket, 5) < 0) {
-		//printf("Failed to start listening!");
+		fprintf(logFile, "Failed to start listening!");
 		return -1;
 	}
 
@@ -219,19 +231,25 @@ int main(int argc, char ** argv) {
 		char buffer[1024];
 		int bytesRead = recv(clientSocket, buffer, 1023, 0);
 		buffer[bytesRead] = '\0';
-		//printf("%s", buffer);
+		fprintf(logFile, "%s", buffer);
 
-		//printf("--------------------------------------\n");
+		fprintf(logFile, "--------------------------------------\n");
 
 		sendResponse(clientSocket, buffer);	
 
-		//printf("--------------------------------------\n\n");
+		fprintf(logFile, "--------------------------------------\n\n");
 		
+		fflush(logFile);
+
 		shutdown(clientSocket, SHUT_RDWR);
 		close(clientSocket);
 	}
 
 	close(serverSocket);
+
+	if (argc > 1) {
+		fclose(logFile);
+	}
 
 	return 0;
 }
