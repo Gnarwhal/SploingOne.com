@@ -228,8 +228,6 @@ html, body {
 
 	margin-left:   var(--gnarwhal-spacing);
 	margin-bottom: var(--gnarwhal-spacing);
-
-	cursor: pointer;
 }
 
 .gnarwhal_alternate > .gnarwhal_download_overlay {
@@ -293,6 +291,11 @@ html, body {
 	color: white;
 
 	text-decoration: none;
+
+	cursor: pointer;
+
+	transition-property: background-color;
+	transition-duration: 0.1s;
 }
 
 .gnarwhal_download_button.gnarwhal_svg {
