@@ -3,6 +3,9 @@
 	--navitem-height: 75%;
 
 	--typing-delay: 0.15s;
+
+	--gnarwhal-spacing: 2%;
+	--gnarwhal-border-radius: 6px;
 }
 
 html, body {
@@ -36,6 +39,8 @@ html, body {
 	color: var(--foreground);
 	font-family: sans-serif;
 	font-size: 1.5em;
+	white-space: nowrap;
+	text-overflow: hidden;
 
 	padding-left: 20px;
 	padding-right: 20px;
@@ -54,8 +59,7 @@ html, body {
 	background-color: var(--foreground2);
 }
 
-.nav_item > img,
-.nav_item > object {
+.nav_item > img {
 	height: 60%;
 
 	border-radius: 10%;
@@ -99,7 +103,7 @@ html, body {
 	top: var(--navbar-height);
 	width: 100%;
 	height: calc(100% - var(--navbar-height));
-	overflow-y: auto;
+	max-height: calc(100% - var(--navbar-height));
 
 	display: flex;
 	flex-direction: row;
@@ -107,8 +111,9 @@ html, body {
 
 .subpage_mask {
 	width: 0%;
-	height: max-content;
+	height: 100%;
 	overflow: hidden;
+	overflow-y: auto;
 
 	transition-property: width;
 	transition-duration: 0.35s;
@@ -124,14 +129,180 @@ html, body {
 	height: max-content;
 }
 
-#_subpage {
-	background-color: blue;
+.subpage_body {
+	width: 100%;
+	height: 100%;
 }
 
-#gnarwhal_subpage {
-	background-color: purple;
+.construction {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 5%;
+	width: 100%;
+	color: var(--foreground);
+	text-align: center;
+
+	font-family: sans-serif;
+	font-size: 3em;
 }
 
-#ludum_dare_subpage {
-	background-color: red;
+#gnarwhal_subpage_body {
+	box-sizing: border-box;
+	padding-top: var(--gnarwhal-spacing);
+	padding-bottom: 3em;
 }
+
+#gnarwhal_profile {
+	margin: var(--gnarwhal-spacing);
+	margin-top: 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+
+	width: 96%;
+	height: max-content;
+
+	background-color: var(--background2);
+
+	border-radius: var(--gnarwhal-border-radius);
+	overflow: hidden;
+
+	box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#gnarwhal_profile_img {
+	width: calc(50% - var(--gnarwhal-spacing) * 2);
+}
+
+#gnarwhal_profile_data {
+	width: 50%;
+	padding: calc(var(--gnarwhal-spacing) * 2);
+}
+
+.gnarwhal_profile_datum {
+	/*display: flex;
+	flex-direction: row;
+	justify-content: start;
+	align-items: center;*/
+}
+
+.gnarwhal_profile_key {
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 4vw;
+	color: var(--foreground);
+}
+
+.gnarwhal_profile_value {
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 2vw;
+	color: var(--foreground);
+}
+
+#gnarwhal_alternate_list {
+	width: 100%;
+	height: max-content;
+
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	flex-wrap: wrap;
+}
+
+.gnarwhal_alternate {
+	width: calc((100% - var(--gnarwhal-spacing) * 2));
+	height: max-content;
+
+	border-radius: var(--gnarwhal-border-radius);
+	overflow: hidden;
+	box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.5);
+
+	background-color: var(--background2);
+
+	color: var(--foreground);
+	text-align: center;
+	font-size: 1.5em;
+	font-family: sans-serif;
+
+	margin-left:   var(--gnarwhal-spacing);
+	margin-bottom: var(--gnarwhal-spacing);
+
+	cursor: pointer;
+}
+
+.gnarwhal_alternate > img {
+	width: 100%;
+}
+
+.gnarwhal_download {
+	width: 100%;
+	height: 0;
+
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+
+	transition-property: height;
+	transition-duration: 0.2s;
+}
+
+.gnarwhal_download.expanded {
+	height: 3em;
+}
+
+.gnarwhal_download_button {
+	margin: 0 5%;
+	border: 0;
+	padding: 2%;
+	width: 20%;
+	border-radius: var(--gnarwhal-border-radius);
+	color: white;
+
+	text-decoration: none;
+}
+
+.gnarwhal_download_button.gnarwhal_svg {
+	background-color: var(--green);
+}
+
+.gnarwhal_download_button.gnarwhal_svg:hover {
+	background-color: var(--green2);
+}
+
+.gnarwhal_download_button.gnarwhal_svg:active {
+	background-color: var(--green3);
+}
+
+.gnarwhal_download_button.gnarwhal_png {
+	background-color: var(--red);
+}
+
+.gnarwhal_download_button.gnarwhal_png:hover {
+	background-color: var(--red2);
+}
+
+.gnarwhal_download_button.gnarwhal_png:active {
+	background-color: var(--red3);
+}
+
+@media only screen and (min-width: 600px) {	
+	.gnarwhal_alternate {
+		width: calc((100% - var(--gnarwhal-spacing) * 3) / 2);
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.gnarwhal_alternate {
+		width: calc((100% - var(--gnarwhal-spacing) * 4) / 3);
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.gnarwhal_alternate {
+		width: calc((100% - var(--gnarwhal-spacing) * 5) / 4);
+	}
+}
+
+

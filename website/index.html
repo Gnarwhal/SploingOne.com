@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home | Sploing One</title>
+		<title id="page_title">Home | Sploing One</title>
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="styles/dark.css" />
 		<link rel="stylesheet" href="styles/index.css" />
@@ -35,23 +35,110 @@
 		
 		<div id="subpages">
 			<!-- Root Page (Home Page) -->
-			<div id="_subpage_mask" class="subpage_mask">
+			<div id="_subpage_mask" class="subpage_mask" data-name="Home">
 				<div id="_subpage" class="subpage">
-					<p>Hello World!</p>
+					<div id="_subpage_body" class="subpage_body">
+						<p class="construction">Under Construction</p>
+					</div>
 				</div>
 			</div>
 
 			<!-- Gnarwhal Aboutism -->
-			<div id="gnarwhal_subpage_mask" class="subpage_mask">
+			<div id="gnarwhal_subpage_mask" class="subpage_mask" data-name="Gnarwhal">
 				<div id="gnarwhal_subpage" class="subpage">
-					<p>Hello Gnarwhal!</p>
+					<div id="gnarwhal_subpage_body" class="subpage_body">
+						<div id="gnarwhal_profile">
+							<img id="gnarwhal_profile_img" src="res/gnarwhal_current.svg" alt="Gnarwhal" />
+							<div id="gnarwhal_profile_data">
+								<div class="gnarwhal_profile_datum">
+									<p class="gnarwhal_profile_key">Name</p>              <p class="gnarwhal_profile_value">Gnarwhal</p>
+								</div>
+								<div class="gnarwhal_profile_datum">
+									<p class="gnarwhal_profile_key">Known Aliases</p>     <p class="gnarwhal_profile_value">Gnaaarwhal, 一角ちゃん</p>
+								</div>
+								<div class="gnarwhal_profile_datum">
+									<p class="gnarwhal_profile_key">Pronouns</p>          <p class="gnarwhal_profile_value">They/Them, It/Its</p>
+								</div>
+								<div class="gnarwhal_profile_datum">
+									<p class="gnarwhal_profile_key">Place of Residence</p><p class="gnarwhal_profile_value">Arctic Ocean, Canada</p>
+								</div>
+							</div>
+						</div>
+						<div id="gnarwhal_alternate_list">
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_blm_pride.svg" alt="BLM/Pride Gnarwhal" />
+								<p class="gnarwhal_alt_name">BLM/Pride Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_blm_pride.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_blm_pride.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_suit.svg" alt="Formal Gnarwhal" />
+								<p class="gnarwhal_alt_name">Formal Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_suit.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_suit.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_mlg.png" alt="MLG Gnarwhal" />
+								<p class="gnarwhal_alt_name">MLG Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_mlg.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_winter.svg" alt="Winter Gnarwhal" />
+								<p class="gnarwhal_alt_name">Winter Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_winter.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_winter.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_engraving.svg" alt="Engraved Gnarwhal" />
+								<p class="gnarwhal_alt_name">Engraved Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_engraving.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_engraving.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_kuroi_neko.svg" alt="Black Cat Gnarwhal" />
+								<p class="gnarwhal_alt_name">Black Cat Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_kuroi_neko.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_kuroi_neko.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi_bunny.svg" alt="Bunny Gnarwhal" />
+								<p class="gnarwhal_alt_name">Bunny Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi_bunny.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi_bunny.png" download>png</a>
+								</div>
+							</div>
+							<div class="gnarwhal_alternate">
+								<img src="res/gnarwhal_chibi.svg" alt="Original Gnarwhal" />
+								<p class="gnarwhal_alt_name">Original Gnarwhal</p>
+								<div class="gnarwhal_download">
+									<a class="gnarwhal_download_button gnarwhal_svg" href="res/gnarwhal_chibi.svg" download>svg</a>
+									<a class="gnarwhal_download_button gnarwhal_png" href="res/gnarwhal_chibi.png" download>png</a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<!-- Ludum Dare Projects -->
-			<div id="ludum_dare_subpage_mask" class="subpage_mask">
+			<div id="ludum_dare_subpage_mask" class="subpage_mask" data-name="Ludum Dare">
 				<div id="ludum_dare_subpage" class="subpage">
-					<p>Hello Ludum Dare!</p>
+					<div id="ludum_dare_subpage_body" class="subpage_body">
+						<p class="construction">Under Construction</p>
+					</div>
 				</div>
 			</div>
 
