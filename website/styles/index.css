@@ -149,7 +149,6 @@ html, body {
 #gnarwhal_subpage_body {
 	box-sizing: border-box;
 	padding-top: var(--gnarwhal-spacing);
-	padding-bottom: 3em;
 }
 
 #gnarwhal_profile {
@@ -212,6 +211,7 @@ html, body {
 }
 
 .gnarwhal_alternate {
+	position: relative;
 	width: calc((100% - var(--gnarwhal-spacing) * 2));
 	height: max-content;
 
@@ -232,24 +232,56 @@ html, body {
 	cursor: pointer;
 }
 
+.gnarwhal_alternate > .gnarwhal_download_overlay {
+	position: absolute;
+	opacity: 0;
+
+	transition-property: opacity;
+	transition-duration: 0.2s;
+}
+
+.gnarwhal_alternate:hover > .gnarwhal_download_overlay {
+	opacity: 0.5;
+}
+
 .gnarwhal_alternate > img {
 	width: 100%;
+	display: block;
+}
+
+.gnarwhal_download_footer {
+	position: relative;
+	width: 100%;
+	height: max-content;
+}
+
+.gnarwhal_download_footer > p {
+	margin: 0;
+	padding: 1em;
+	height: 100%;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .gnarwhal_download {
+	position: absolute;
 	width: 100%;
 	height: 0;
 
 	display: flex;
 	justify-content: center;
-	align-items: flex-start;
+	align-items: center;
+
+	background-color: var(--background2);
+
+	overflow: hidden;
 
 	transition-property: height;
 	transition-duration: 0.2s;
 }
 
-.gnarwhal_download.expanded {
-	height: 3em;
+.gnarwhal_alternate:hover .gnarwhal_download {
+	height: 100%;
 }
 
 .gnarwhal_download_button {

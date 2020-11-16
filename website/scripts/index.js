@@ -32,25 +32,6 @@ gnarwhal.main = (main_event) => {
 	window.addEventListener("popstate", (pop_event) => {
 		set_subpage(pop_event.state.subpage);
 	});
-
-
-	let gnarwhal_alternates = document.querySelectorAll(".gnarwhal_alternate");
-	let gnarwhal_downloads  = document.querySelectorAll(".gnarwhal_download" );
-	let gnarwhal_buttons    = document.querySelectorAll(".gnarwhal_download_button");
-
-	for (let i = 0; i < gnarwhal_alternates.length; ++i) {
-		gnarwhal_alternates[i].addEventListener("click", (click_event) => {
-			if (gnarwhal_downloads[i].classList.contains("expanded")) {
-				gnarwhal_downloads[i].classList.remove("expanded");
-			} else {
-				gnarwhal_downloads[i].classList.add("expanded");
-			}
-		});
-	}
-
-	for (let button of gnarwhal_buttons) {
-		button.addEventListener("click", (click_event) => { click_event.stopPropagation(); });
-	}
 }
 
 window.addEventListener("load", gnarwhal.main);
