@@ -1,1 +1,7 @@
-extraneous/
+/website/extraneous/
+/website/static.py
+
+/server/server
+/server/out/
+
+
