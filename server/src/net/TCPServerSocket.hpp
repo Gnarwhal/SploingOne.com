@@ -24,32 +24,57 @@
  *
  *******************************************************************************/
 
-#include <iostream>
+#ifndef GNARWHAL_WEBSERVER_TCP_SERVER_SOCKET
+#define GNARWHAL_WEBSERVER_TCP_SERVER_SOCKET
 
-#include "types.hpp"
-#include "net/TCPServerSocket.hpp"
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <poll.h>
 
-i32 main(i32 argc, char ** argv) {
-	std::cout << "Hello World!" << std::endl;
+#include <vector>
 
-	auto socket = TCPServerSocket(0x473);
-	auto clients = socket.accept(3 * 60 * 1000);
+#include "../types.hpp"
 
-	for (auto & client : clients) {
-		std::cout << "Client connected!" << std::endl;
+class TCPServerSocket {
+	private:
+		struct Client {
+			u32 id;
+			i32 socket;
+		};
 
-		auto buffer = socket.read_all(client, 128);
-		buffer.push_back('\0');
-		std::cout << buffer.data() << std::endl;
-		std::cout << "//////////////////////////" << std::endl;
+		i32    server_socket;
+		pollfd server_fd;
 
-		auto message = std::string("HTTP/1.1 200 Ok\nContent-Type: text/html; charset=utf-8\nContent-Length: 115\n\n<!DOCTYPE html><html><head><meta charset=\"UTF-8\" /><title>Demo</title></head><body><p>Hello World!</p></body></html>");
-		auto message_bytes = std::vector<u8>( message.begin(), message.end() );
-		socket.write(client, message_bytes);
-		message_bytes.push_back('\0');
-		std::cout << message_bytes.data() << std::endl;
-	}
+		u32 current_client_id;
+		std::vector<Client> clients;
+		std::vector<pollfd> client_fds;
 
-	return 0;
-}
+		auto find_client(u32 id) -> usize;
+
+	public:
+		const static auto SOCKET_CREATION_FAILED = u32( 0x00 );
+		const static auto CLIENT_NOT_FOUND       = u32( 0x01 );
+
+		TCPServerSocket(u32 port);
+
+		auto accept(u32 timeout) -> std::vector<u32>;
+		
+		auto poll_all(u32 timeout) -> std::vector<u32>;
+		auto poll(u32 client_id, u32 timeout) -> bool;
+		auto read(u32 client_id, u32 length) -> std::vector<u8>;
+		auto read(u32 client_id, u32 length, std::vector<u8> & buffer) -> void;
+		auto read_all(u32 client_id, u32 block_size) -> std::vector<u8>;
+		auto read_all(u32 client_id, u32 block_size, std::vector<u8> & buffer) -> void;
+
+		auto write_all(std::vector<u8> & bytes) -> void;
+		auto write(u32 client, std::vector<u8> & bytes) -> void;
+
+		auto cull_disconnected_clients() -> std::vector<u32>;
+		
+		~TCPServerSocket();
+};
+
+#define GNARWHAL_WEBSERVER_TCP_SERVER_SOCKET_FORWARD
+#endif // GNARWHAL_WEBSERVER_TCP_SERVER_SOCKET
 
